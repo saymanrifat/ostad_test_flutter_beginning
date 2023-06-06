@@ -1,16 +1,14 @@
-# ostad_test_flutter_beginning
 
-A new Flutter project.
+# Project Title
 
-## Getting Started
+Ostad Test App Made By Sayman Rifat
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![App Screenshot](https://github.com/saymanrifat/ostad_test_flutter_beginning/blob/main/assets/images/drawer.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![App Screenshot](https://github.com/saymanrifat/ostad_test_flutter_beginning/blob/main/assets/images/drawer.png)
+
+![App Screenshot](https://github.com/saymanrifat/ostad_test_flutter_beginning/blob/main/assets/images/drawer.png)
+
