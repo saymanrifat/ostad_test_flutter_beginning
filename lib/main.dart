@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(const BaseApp());
@@ -25,12 +26,34 @@ class HostMainPage extends StatefulWidget {
   State<HostMainPage> createState() => _HostMainPageState();
 }
 
-class _HostMainPageState extends State<HostMainPage> {
+class _HostMainPageState extends State<HostMainPage>
+    with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
+  late TabController _tabController;
 
   selectedTab(int index) {
     setState(() {
       selectedIndex = index;
+      _tabController.animateTo(index);
+    });
+  }
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  void _handleTabSelection() {
+    setState(() {
+      selectedIndex = _tabController.index;
     });
   }
 
@@ -38,15 +61,25 @@ class _HostMainPageState extends State<HostMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Beginning'),
-      ),
-      body: Container(
-        child: Center(
-            child: Text(
+        title: Text(
           labelData(selectedIndex),
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        )),
+        ),
       ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Page1(),
+          Page2(),
+          Page3(),
+        ],
+      ),
+      // body: Container(
+      //   child: Center(
+      //       child: Text(
+      //     labelData(selectedIndex),
+      //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      //   )),
+      // ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -65,12 +98,19 @@ class _HostMainPageState extends State<HostMainPage> {
                       fontSize: 20,
                     ),
                   ),
+                  Text(
+                    'Ostad Test',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
                   SizedBox(height: 10),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               height: 400,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -79,10 +119,12 @@ class _HostMainPageState extends State<HostMainPage> {
                   return ListTile(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    leading: imageData(1),
+                    leading: imageData(index),
                     title: Text(labelData(index)),
                     onTap: () {
                       selectedTab(index);
+
+                      _tabController.animateTo(index);
                       Navigator.pop(context);
                     },
                     tileColor: selectedIndex == index
@@ -91,7 +133,7 @@ class _HostMainPageState extends State<HostMainPage> {
                   );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -102,9 +144,8 @@ class _HostMainPageState extends State<HostMainPage> {
         currentIndex: selectedIndex,
         items: [
           BottomNavigationBarItem(icon: imageData(0), label: labelData(0)),
-          BottomNavigationBarItem(icon: Icon(Icons.two_k), label: labelData(1)),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.three_k), label: labelData(2)),
+          BottomNavigationBarItem(icon: imageData(1), label: labelData(1)),
+          BottomNavigationBarItem(icon: imageData(2), label: labelData(2)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -117,9 +158,9 @@ class _HostMainPageState extends State<HostMainPage> {
 
   imageData(int index) {
     List iconArray = [
-      Icon(Icons.one_k),
-      Icon(Icons.two_k),
-      Icon(Icons.three_k)
+      Icon(FontAwesomeIcons.one),
+      Icon(FontAwesomeIcons.two),
+      Icon(FontAwesomeIcons.three)
     ];
     return iconArray[index];
   }
@@ -132,5 +173,32 @@ class _HostMainPageState extends State<HostMainPage> {
   bodyBackgroundColor(int index) {
     List colorArray = [Colors.amberAccent, Colors.red, Colors.greenAccent];
     return colorArray[index];
+  }
+}
+
+class Page1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Page 1'),
+    );
+  }
+}
+
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Page 2'),
+    );
+  }
+}
+
+class Page3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Page 3'),
+    );
   }
 }
