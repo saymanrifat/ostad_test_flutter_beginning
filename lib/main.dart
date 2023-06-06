@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(const BaseApp());
@@ -119,7 +116,6 @@ class _HostMainPageState extends State<HostMainPage>
                   return ListTile(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    leading: imageData(index),
                     title: Text(labelData(index)),
                     onTap: () {
                       selectedTab(index);
@@ -143,26 +139,17 @@ class _HostMainPageState extends State<HostMainPage>
         },
         currentIndex: selectedIndex,
         items: [
-          BottomNavigationBarItem(icon: imageData(0), label: labelData(0)),
-          BottomNavigationBarItem(icon: imageData(1), label: labelData(1)),
-          BottomNavigationBarItem(icon: imageData(2), label: labelData(2)),
+          BottomNavigationBarItem(icon: Icon(null), label: labelData(0)),
+          BottomNavigationBarItem(icon: Icon(null), label: labelData(1)),
+          BottomNavigationBarItem(icon: Icon(null), label: labelData(2)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: imageData(selectedIndex),
+        child: Text(labelData(selectedIndex)),
         backgroundColor: bodyBackgroundColor(selectedIndex),
       ),
     );
-  }
-
-  imageData(int index) {
-    List iconArray = [
-      Icon(FontAwesomeIcons.one),
-      Icon(FontAwesomeIcons.two),
-      Icon(FontAwesomeIcons.three)
-    ];
-    return iconArray[index];
   }
 
   labelData(int index) {
